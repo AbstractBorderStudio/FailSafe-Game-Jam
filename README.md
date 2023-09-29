@@ -5,3 +5,9 @@
 - Bologna Daniel
 - Massimiani Gabriele
 - Uras Pietro
+
+## Theme
+
+## Idea
+
+## Concept
