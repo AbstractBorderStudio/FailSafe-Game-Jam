@@ -21,12 +21,17 @@ enum PlayerState
 [RequireComponent(typeof(LineRenderer))]
 public class Player : MonoBehaviour
 {
+    [SerializeField]
     PlayerState currentState;
     [SerializeField]
     float targetSpeed = 1.0f,
         gravityScaleMax = 0.5f;
     float gravityScale;
     Vector3 direction;
+    public Vector3 Direction {
+        get {return direction;} 
+        private set{}
+        }
     Transform currentPlanet; 
     float orientation = 1f;
     GameObject[] planets;
@@ -151,7 +156,8 @@ public class Player : MonoBehaviour
     #region CollisionHandling
     void OnTriggerEnter2D(Collider2D target)
     {
-        if (target.tag == "planet") // colliding with a planet orbit
+        Planet current;
+        if (target.tag == "planet" && target.TryGetComponent<Planet>(out current)) // colliding with a planet orbit
         {
             if (currentState == PlayerState.Orbiting) return;
             currentState = PlayerState.Orbiting;
@@ -176,11 +182,7 @@ public class Player : MonoBehaviour
                 orientation = 1f;
             }
 
-            Planet current;
-            if (target.TryGetComponent<Planet>(out current))
-            {
-                current.Explored();
-            }
+            current.Explored();
 
             foreach (GameObject planet in planets)
             {
