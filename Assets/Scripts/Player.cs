@@ -20,6 +20,10 @@ public class Player : MonoBehaviour
     private float traslationSpeed = 0.5f,
         rotationSpeed = 0.1f,
         attraction = 1.0f;
+    [SerializeField]
+    private SpriteRenderer sprite;
+    [SerializeField]
+    private ParticleSystem explosion;
     
     private Transform currentPlanet;
     private bool isOrbiting = false;
@@ -27,6 +31,9 @@ public class Player : MonoBehaviour
     private Vector3 direction = Vector3.up;
     private LineRenderer lr;
     private bool dead = false;
+
+    // [SerializeField]
+    // ParticleSystem smokeTrail;
 
     void Start()
     {
@@ -43,6 +50,10 @@ public class Player : MonoBehaviour
         }
         if (isOrbiting)
         {
+            // if (smokeTrail.isEmitting)
+            // {
+            //     smokeTrail.Stop();
+            // }
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 isOrbiting = false;
@@ -68,6 +79,10 @@ public class Player : MonoBehaviour
         }
         else
         {
+            // if (!smokeTrail.isEmitting)
+            // {
+            //     smokeTrail.Play();
+            // }
             transform.position += playerSpeed * direction * Time.deltaTime;
             transform.rotation = Quaternion.LookRotation(Vector3.forward, direction);
 
@@ -80,8 +95,7 @@ public class Player : MonoBehaviour
                 if (Vector3.Magnitude(dist) < Vector3.Magnitude(minDist))
                 {
                     minDist = dist;
-                }   
-
+                }  
             }
             direction = Vector3.Lerp(direction, minDist, attraction/Mathf.Pow(Vector3.Magnitude(minDist),2f) * Time.deltaTime);
         }
@@ -110,6 +124,8 @@ public class Player : MonoBehaviour
     private void Die()
     {
         dead = true;
+        sprite.enabled = false;
+        explosion.Play();
     }   
 
 }
