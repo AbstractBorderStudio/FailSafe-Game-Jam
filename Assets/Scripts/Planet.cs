@@ -5,6 +5,7 @@ using UnityEngine.UIElements;
 
 public class Planet : MonoBehaviour
 {
+    public bool IsExplored {get; set;} = false;
     private Player p;
     private Transform t;
     // Start is called before the first frame update
@@ -23,5 +24,11 @@ public class Planet : MonoBehaviour
         // {
         //     p.Attract(t.position - pPos);
         // }
+    }
+
+    public void Explored()
+    {
+        IsExplored = true;
+        // change color
     }
 }
