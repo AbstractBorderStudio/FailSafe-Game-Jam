@@ -23,30 +23,50 @@ public class Player : MonoBehaviour
     PlayerState currentState;
     [SerializeField]
     float targetSpeed = 1.0f,
-        gravityScale = 0.5f;
+        gravityScaleMax = 0.5f;
+    float gravityScale;
     Vector3 direction;
-    Transform currentPlanet;
-    [SerializeField]
-    float orbitSpeed = 1.0f;
-    float orbitRange, orbitAngle;
+    Transform currentPlanet; 
     float orientation = 1f;
+    GameObject[] planets;
+    
+    [SerializeField]
+    float gravityCooldown = 0.2f;
+    float gravityCooldownCount = 0;
 
     void Start()
     {
         direction = Vector3.up;
+        planets = GameObject.FindGameObjectsWithTag("planet");
+        gravityScale = gravityScaleMax;
     }
 
     void Update()
     {
+        MoveForward();
+
         switch (currentState)
         {
+            case (PlayerState.None):
+                if (Input.GetKeyDown(KeyCode.Space))
+                    currentState = PlayerState.Traveling;
+                break;
             case (PlayerState.Traveling):
+                if (gravityCooldownCount > 0)
+                {
+                    gravityCooldownCount -= Time.deltaTime;
+                }
+                else
+                {
+                    gravityScale = gravityScaleMax;
+                }
                 ComputeAttractionDirection();
-                
                 break;
             case (PlayerState.Orbiting):
                 if (Input.GetKeyDown(KeyCode.Space)) 
                     currentState = PlayerState.Traveling;
+                    gravityScale = 0;
+                    gravityCooldownCount = gravityCooldown;
                 MoveInOrbit();
                 break;
             case (PlayerState.Dead):
@@ -55,7 +75,7 @@ public class Player : MonoBehaviour
                 break;
         }
 
-        MoveForward();
+        
         // change rotation depending on current movement direction
         UpdateRotation();
         // draw line
@@ -69,12 +89,13 @@ public class Player : MonoBehaviour
         if (currentState == PlayerState.Traveling)
             transform.position += direction.normalized * targetSpeed * Time.deltaTime;
         else if (currentState == PlayerState.Orbiting)
-            transform.position += direction.normalized * targetSpeed * Time.deltaTime;
+            transform.position += direction.normalized * Time.deltaTime;
+        
+        Debug.Log(direction);
     }
 
     void ComputeAttractionDirection()
     {
-        GameObject[] planets = GameObject.FindGameObjectsWithTag("planet");
         foreach (GameObject planet in planets)
         {
             Vector3 dist = planet.transform.position - transform.position;
@@ -91,18 +112,6 @@ public class Player : MonoBehaviour
     {
         Vector3 target = Quaternion.Euler(new Vector3(0, 0, -90f)) * (transform.position - currentPlanet.position).normalized;//> * orientation;
         direction = target;
-        
-        // float x = currentPlanet.position.x + orbitRange * Mathf.Cos(orbitAngle);
-        // float y = currentPlanet.position.y + orbitRange * Mathf.Sin(orbitAngle);
-
-        // Vector3 newPos = new Vector3(x, y, 0);
-
-        // transform.position = Vector3.Lerp(transform.position, newPos, 0.1f);
-
-        // direction = (transform.position - currentPlanet.position).normalized;
-        
-        // orbitAngle += orbitSpeed * Time.deltaTime;
-        // if (orbitAngle > 360f) orbitAngle = -360f;
     }
 
     #endregion
@@ -127,15 +136,16 @@ public class Player : MonoBehaviour
     {
         if (target.tag == "planet") // colliding with a planet orbit
         {
+            Debug.Log("Hai preso un pianeta");
             currentState = PlayerState.Orbiting;
             currentPlanet = target.GetComponent<Transform>();
-            orbitRange = target.GetComponent<CircleCollider2D>().radius;
+            //orbitRange = target.GetComponent<CircleCollider2D>().radius;
             // float impactAngle = Vector3.SignedAngle(Vector3.right, transform.position - currentPlanet.position, Vector3.forward);
             // if (impactAngle < 0) impactAngle = 360f - impactAngle * -1f;
             // orbitAngle = Mathf.Deg2Rad * impactAngle;
 
             // calculate orientation
-            float a = Vector3.SignedAngle(Vector3.right, direction, Vector3.forward);
+            //float a = Vector3.SignedAngle(Vector3.right, direction, Vector3.forward);
             // if (a > 0 && a <= 90f)
             // {
             //     orientation = -1f;
