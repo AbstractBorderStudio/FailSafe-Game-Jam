@@ -1,10 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UIElements;
 
 public class Planet : MonoBehaviour
 {
+    [SerializeField]
+    private UnityEvent OnExplore;
+
     [SerializeField]
     private Color exploredColor;
     [SerializeField]
@@ -25,5 +29,6 @@ public class Planet : MonoBehaviour
         if (!IsExplored) exploredParticle.Play();
         sprite.color = exploredColor;
         IsExplored = true;
+        OnExplore.Invoke();
     }
 }

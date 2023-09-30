@@ -33,11 +33,13 @@ public class Teleport : MonoBehaviour
         {
             if (isPos1&& canTeleport)
             {
+                GetComponent<AudioSource>().Play();
                 collision.gameObject.transform.position = pos2.position + collision.GetComponent<Player>().Direction.normalized * 0.2f;
                 StartCoroutine(teleportDeactivationForALittleBit(1));
             }
             else if (isPos2&& canTeleport)
             {
+                GetComponent<AudioSource>().Play();
                 collision.gameObject.transform.position = pos1.position + collision.GetComponent<Player>().Direction.normalized * 0.2f;
                 StartCoroutine(teleportDeactivationForALittleBit(2));
             }
