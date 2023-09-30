@@ -18,13 +18,15 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private float traslationSpeed = 0.5f,
-        rotationSpeed = 0.1f;
+        rotationSpeed = 0.1f,
+        attraction = 1.0f;
     
     private Transform currentPlanet;
     private bool isOrbiting = false;
     private float orbitAngle = 0;
     private Vector3 direction = Vector3.up;
     private LineRenderer lr;
+    private bool dead = false;
 
     void Start()
     {
@@ -35,6 +37,10 @@ public class Player : MonoBehaviour
 
     void Update()
     {   
+        if (dead)
+        {
+            return;
+        }
         if (isOrbiting)
         {
             if (Input.GetKeyDown(KeyCode.Space))
@@ -86,15 +92,24 @@ public class Player : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        currentPlanet = col.GetComponent<Transform>();
-        orbitRange = col.GetComponent<CircleCollider2D>().radius;
-        float impactAngle = Vector3.SignedAngle(Vector3.right, transform.position - currentPlanet.position, Vector3.forward);
-        if (impactAngle < 0) impactAngle = 360f - impactAngle * -1f;
-        orbitAngle = Mathf.Deg2Rad * impactAngle;
-        isOrbiting = true;
+        if (col.tag == "planet")
+        {
+            currentPlanet = col.GetComponent<Transform>();
+            orbitRange = col.GetComponent<CircleCollider2D>().radius;
+            float impactAngle = Vector3.SignedAngle(Vector3.right, transform.position - currentPlanet.position, Vector3.forward);
+            if (impactAngle < 0) impactAngle = 360f - impactAngle * -1f;
+            orbitAngle = Mathf.Deg2Rad * impactAngle;
+            isOrbiting = true;
+        }
+        else if (col.tag == "obstacle")
+        {
+            Die();
+        }
     }
 
-    [SerializeField]
-    float attraction = 1.0f;
+    private void Die()
+    {
+        dead = true;
+    }   
 
 }
