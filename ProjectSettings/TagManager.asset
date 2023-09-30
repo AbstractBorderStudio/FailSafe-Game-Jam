@@ -13,9 +13,9 @@ TagManager:
   - 
   - Water
   - UI
-  - Planet
-  - 
-  - 
+  - Bullet
+  - Breakable
+  - TargetToShoot
   - 
   - 
   - 
