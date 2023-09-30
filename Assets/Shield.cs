@@ -53,9 +53,10 @@ public class Shield : MonoBehaviour
         shieldRenderer.Play();
         Debug.Log("Attivo Scudo");
         yield return new WaitForSeconds(timeProtectionShield);
-        isShieldActive = false;
-        shieldCollider.enabled = false;
         shieldRenderer.Stop();
+        shieldCollider.enabled = false;
+        yield return new WaitForSeconds(1.35f);
+        isShieldActive = false;
         Debug.Log("Disttivo Scudo");
         StartCoroutine(WaitToActivateShield());
 
@@ -67,6 +68,9 @@ public class Shield : MonoBehaviour
         canUseShield = true;
 
     }
-    
+    public bool GetShieldIsActive()
+    {
+        return (isShieldActive);
+    }
     }
 
