@@ -39,4 +39,9 @@ public class BulletMovement : MonoBehaviour, IEnemy
 		//come gestisco che lo scudo respinge robe
     }
 
+	public void OnDestroy()
+	{
+		
+	}
+
 }

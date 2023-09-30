@@ -19,7 +19,6 @@ enum PlayerState
 [RequireComponent(typeof(LineRenderer))]
 public class Player : MonoBehaviour
 {
-    [SerializeField]
     PlayerState currentState;
     [SerializeField]
     float targetSpeed = 1.0f,
@@ -36,6 +35,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+        currentState = PlayerState.None;
         direction = Vector3.up;
         planets = GameObject.FindGameObjectsWithTag("planet");
         gravityScale = gravityScaleMax;
@@ -70,6 +70,8 @@ public class Player : MonoBehaviour
                 MoveInOrbit();
                 break;
             case (PlayerState.Dead):
+                if (Input.GetKeyDown(KeyCode.Space))
+                    RestartLevel();
                 return;
             default:
                 break;
@@ -110,7 +112,7 @@ public class Player : MonoBehaviour
 
     void MoveInOrbit()
     {
-        Vector3 target = Quaternion.Euler(new Vector3(0, 0, -90f)) * (transform.position - currentPlanet.position).normalized;//> * orientation;
+        Vector3 target = Quaternion.Euler(new Vector3(0, 0, -90f)) * (transform.position - currentPlanet.position).normalized * orientation;
         direction = target;
     }
 
@@ -139,29 +141,25 @@ public class Player : MonoBehaviour
             Debug.Log("Hai preso un pianeta");
             currentState = PlayerState.Orbiting;
             currentPlanet = target.GetComponent<Transform>();
-            //orbitRange = target.GetComponent<CircleCollider2D>().radius;
-            // float impactAngle = Vector3.SignedAngle(Vector3.right, transform.position - currentPlanet.position, Vector3.forward);
-            // if (impactAngle < 0) impactAngle = 360f - impactAngle * -1f;
-            // orbitAngle = Mathf.Deg2Rad * impactAngle;
 
             // calculate orientation
-            //float a = Vector3.SignedAngle(Vector3.right, direction, Vector3.forward);
-            // if (a > 0 && a <= 90f)
-            // {
-            //     orientation = -1f;
-            // }
-            // else if (a > 90f  && a < 180f)
-            // {
-            //     orientation = 1f;
-            // }
-            // else if (a < 0 && a >= -90f)
-            // {
-            //     orientation = -1f;
-            // }
-            // else if (a < -90f  && a >= 180f)
-            // {
-            //     orientation = 1f;
-            // }
+            float a = Vector3.SignedAngle(Vector3.right, direction, Vector3.forward);
+            if (a > 0 && a <= 90f)
+            {
+                orientation = -1f;
+            }
+            else if (a > 90f  && a < 180f)
+            {
+                orientation = 1f;
+            }
+            else if (a < 0 && a >= -90f)
+            {
+                orientation = -1f;
+            }
+            else if (a < -90f  && a >= -180f)
+            {
+                orientation = 1f;
+            }
         }
         else if (target.tag == "obstacle") // colliding with an obstacle
         {

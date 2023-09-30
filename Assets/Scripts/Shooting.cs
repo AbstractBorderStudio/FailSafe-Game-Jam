@@ -59,16 +59,10 @@ public class Shooting : MonoBehaviour
        
 	}
 
-    void FixedUpdate()
-		{
-		//StartCoroutine(WaitToShoot());
-
-		}
-
 
 	GameObject CreatePlayerBullet()
 	{
-			return Instantiate(playerBulletPrefab, shootingPoint.position, Quaternion.identity);
+		return Instantiate(playerBulletPrefab, shootingPoint.position, Quaternion.identity);
 	}
 	
 	private IEnumerator WaitToShoot()
