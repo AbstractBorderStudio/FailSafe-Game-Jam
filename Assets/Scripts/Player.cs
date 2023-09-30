@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D))]
@@ -32,8 +33,11 @@ public class Player : MonoBehaviour
     private LineRenderer lr;
     private bool dead = false;
 
-    // [SerializeField]
-    // ParticleSystem smokeTrail;
+    [SerializeField]
+    ParticleSystem smokeTrail;
+
+    [SerializeField]
+    private CinemachineVirtualCamera pov, full;
 
     void Start()
     {
@@ -50,10 +54,15 @@ public class Player : MonoBehaviour
         }
         if (isOrbiting)
         {
-            // if (smokeTrail.isEmitting)
-            // {
-            //     smokeTrail.Stop();
-            // }
+            if (pov.Priority > full.Priority)
+            {
+                pov.Priority = 5;
+                full.Priority = 10;
+            }
+            if (smokeTrail.isEmitting)
+            {
+                smokeTrail.Stop();
+            }
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 isOrbiting = false;
@@ -79,10 +88,15 @@ public class Player : MonoBehaviour
         }
         else
         {
-            // if (!smokeTrail.isEmitting)
-            // {
-            //     smokeTrail.Play();
-            // }
+            if (pov.Priority < full.Priority)
+            {
+                pov.Priority = 10;
+                full.Priority = 5;
+            }
+            if (!smokeTrail.isEmitting)
+            {
+                smokeTrail.Play();
+            }
             transform.position += playerSpeed * direction * Time.deltaTime;
             transform.rotation = Quaternion.LookRotation(Vector3.forward, direction);
 
@@ -125,6 +139,7 @@ public class Player : MonoBehaviour
     {
         dead = true;
         sprite.enabled = false;
+        smokeTrail.Stop();
         explosion.Play();
     }   
 
