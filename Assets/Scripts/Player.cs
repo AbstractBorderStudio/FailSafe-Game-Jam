@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
+using UnityEditor.Experimental.GraphView;
 using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.Events;
@@ -72,6 +73,10 @@ public class Player : MonoBehaviour
                 MoveInOrbit();
                 break;
             case (PlayerState.Dead):
+                if (Input.GetKeyDown(KeyCode.Space))
+                    RestartLevel();
+                return;
+            case (PlayerState.Win):
                 if (Input.GetKeyDown(KeyCode.Space))
                     RestartLevel();
                 return;
@@ -171,12 +176,21 @@ public class Player : MonoBehaviour
                 orientation = 1f;
             }
 
-            target.GetComponent<Planet>().Explored();
+            Planet current;
+            if (target.TryGetComponent<Planet>(out current))
+            {
+                current.Explored();
+            }
 
             foreach (GameObject planet in planets)
             {
-                if (!planet.GetComponent<Planet>().IsExplored)
-                return;
+                Planet p;
+                if (planet.TryGetComponent<Planet>(out p))
+                {
+                    if (!p.IsExplored)
+                    return;
+                }
+                else continue;
             }
 
             // if all planets are explored
