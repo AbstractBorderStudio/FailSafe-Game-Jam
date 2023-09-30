@@ -33,12 +33,12 @@ public class Teleport : MonoBehaviour
         {
             if (isPos1&& canTeleport)
             {
-                collision.gameObject.transform.position = pos2.position;
+                collision.gameObject.transform.position = pos2.position + collision.GetComponent<Player>().Direction.normalized * 0.2f;
                 StartCoroutine(teleportDeactivationForALittleBit(1));
             }
             else if (isPos2&& canTeleport)
             {
-                collision.gameObject.transform.position = pos1.position;
+                collision.gameObject.transform.position = pos1.position + collision.GetComponent<Player>().Direction.normalized * 0.2f;
                 StartCoroutine(teleportDeactivationForALittleBit(2));
             }
         }
@@ -48,21 +48,22 @@ public class Teleport : MonoBehaviour
         if (a == 1)
         {
             t2.canTeleport = false;
-            yield return new WaitForSeconds(2f);
+            enabled = false;
             player.GetComponent<Player>().TimedDisableGravity();
+            yield return new WaitForSeconds(2f);
             //problema sto in orbiting
-           
+
             t2.canTeleport = true;
         }
         if (a == 2)
         {
             t1.canTeleport = false;
-            yield return new WaitForSeconds(2f);
+            enabled = false;
             player.GetComponent<Player>().TimedDisableGravity();
+            yield return new WaitForSeconds(2f);
             //problema sto in orbiting
-            
-            t1.canTeleport = true;
+
+            t1.canTeleport = true;   
         }
-        
     }
 }
