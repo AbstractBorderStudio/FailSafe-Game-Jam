@@ -16,13 +16,16 @@ public class Teleport : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        player = GameObject.FindGameObjectWithTag("StarShip");
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (player == null)
+        {
+            player = GameObject.FindGameObjectWithTag("StarShip");
+        }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -46,14 +49,18 @@ public class Teleport : MonoBehaviour
         {
             t2.canTeleport = false;
             yield return new WaitForSeconds(2f);
-            //invoca su t2 funzione dan per depotenziare gravità
+            player.GetComponent<Player>().TimedDisableGravity();
+            //problema sto in orbiting
+           
             t2.canTeleport = true;
         }
         if (a == 2)
         {
             t1.canTeleport = false;
             yield return new WaitForSeconds(2f);
-            //invoca su t1 funzione dan per depotenziare gravità
+            player.GetComponent<Player>().TimedDisableGravity();
+            //problema sto in orbiting
+            
             t1.canTeleport = true;
         }
         
