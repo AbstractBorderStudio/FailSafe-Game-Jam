@@ -53,6 +53,7 @@ public class Player : MonoBehaviour
                     currentState = PlayerState.Traveling;
                 break;
             case (PlayerState.Traveling):
+                if (!smokeTrail.isEmitting) smokeTrail.Play();
                 if (gravityCooldownCount > 0)
                 {
                     gravityCooldownCount -= Time.deltaTime;
@@ -64,10 +65,10 @@ public class Player : MonoBehaviour
                 ComputeAttractionDirection();
                 break;
             case (PlayerState.Orbiting):
+                if (smokeTrail.isEmitting) smokeTrail.Stop();
                 if (Input.GetKeyDown(KeyCode.Space)) 
                     currentState = PlayerState.Traveling;
-                    gravityScale = 0;
-                    gravityCooldownCount = gravityCooldown;
+                    TimedDisableGravity();
                 MoveInOrbit();
                 break;
             case (PlayerState.Dead):
@@ -93,7 +94,7 @@ public class Player : MonoBehaviour
         if (currentState == PlayerState.Traveling)
             velocity = direction.normalized * targetSpeed * Time.deltaTime;
         else if (currentState == PlayerState.Orbiting)
-            velocity = direction.normalized * Time.deltaTime;
+            velocity = direction * Time.deltaTime;
         
 
         transform.position += velocity;
@@ -116,7 +117,13 @@ public class Player : MonoBehaviour
     void MoveInOrbit()
     {
         Vector3 target = Quaternion.Euler(new Vector3(0, 0, -90f)) * (transform.position - currentPlanet.position).normalized * orientation;
-        direction = target;
+        direction = target * targetSpeed + (currentPlanet.position - transform.position).normalized / targetSpeed;
+    }
+
+    public void TimedDisableGravity()
+    {   
+        gravityScale = 0;
+        gravityCooldownCount = gravityCooldown;
     }
 
     #endregion
@@ -141,7 +148,7 @@ public class Player : MonoBehaviour
     {
         if (target.tag == "planet") // colliding with a planet orbit
         {
-            Debug.Log("Hai preso un pianeta");
+            if (currentState == PlayerState.Orbiting) return;
             currentState = PlayerState.Orbiting;
             currentPlanet = target.GetComponent<Transform>();
 
