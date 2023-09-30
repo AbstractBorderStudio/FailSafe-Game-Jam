@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletMovement : MonoBehaviour
+public class BulletMovement : MonoBehaviour, IEnemy
 {
 	private Vector3 direction;
 	private float speed;
@@ -34,6 +34,9 @@ public class BulletMovement : MonoBehaviour
     {
 		canMove = false;
     }
-	
+	public void Repel()
+    {
+		//come gestisco che lo scudo respinge robe
+    }
 
 }

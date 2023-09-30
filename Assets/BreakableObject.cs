@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class BreakableObject : MonoBehaviour
+public class BreakableObject : MonoBehaviour,IEnemy
 {
     int bulletLayer;
+    [SerializeField] private UnityEvent OnHitBreakable;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +24,7 @@ public class BreakableObject : MonoBehaviour
         if (collision.gameObject.layer==6) //6 corrisponde a bullet
         {
             Debug.Log("colpito");
+            OnHitBreakable.Invoke();
             collision.GetComponent<BulletMovement>().stopMove();
             collision.GetComponent<ParticleSystem>().Play();
             collision.GetComponent<SpriteRenderer>().enabled = false;
@@ -43,5 +46,19 @@ public class BreakableObject : MonoBehaviour
         GetComponent<BoxCollider2D>().enabled = false;
         yield return new WaitForSeconds(2f);
         GameObject.Destroy(gameObject);
+    }
+    private IEnumerator DestroyBreakableShield()
+    {
+        yield return new WaitForSeconds(0.15f);
+        GetComponent<SpriteRenderer>().enabled = false;
+        GetComponent<BoxCollider2D>().enabled = false;
+        yield return new WaitForSeconds(2f);
+        GameObject.Destroy(gameObject);
+    }
+
+    public void Repel()
+    {
+        
+        StartCoroutine(DestroyBreakableShield());
     }
 }
