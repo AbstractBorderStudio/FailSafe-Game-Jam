@@ -56,6 +56,16 @@ public class LevelSelector : MonoBehaviour
             contatoreLiv = 0;
             frecciaSX.interactable = false;
         }
+
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            SetCliccatoSX();
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            SetCliccatoDX();
+        }
     }
     
     public void SetCliccatoSX()
