@@ -8,6 +8,7 @@ public class BulletMovement : MonoBehaviour, IEnemy
 	private Vector3 direction;
 	private float speed;
 	private bool canMove = true;
+	private MapEnd a;
 
 	// Use this for initialization
 	void Start()
@@ -41,7 +42,14 @@ public class BulletMovement : MonoBehaviour, IEnemy
 
 	public void OnDestroy()
 	{
-		
+		GameObject.Destroy(gameObject);
 	}
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.TryGetComponent<MapEnd>(out a))
+        {
+			OnDestroy();
+        }
+    }
 
 }

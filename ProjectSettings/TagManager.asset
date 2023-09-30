@@ -6,6 +6,8 @@ TagManager:
   tags:
   - planet
   - obstacle
+  - Undefined
+  - StarShip
   layers:
   - Default
   - TransparentFX
@@ -40,6 +42,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: BackGround
+    uniqueID: 436404223
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
