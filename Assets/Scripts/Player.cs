@@ -12,8 +12,7 @@ public class Player : MonoBehaviour
 
     [SerializeField] 
     private float playerSpeed = 1.0f,
-        orbitSpeed = 1.0f,
-        attractionRange = 1.0f;        
+        orbitSpeed = 1.0f;     
     float orbitRange;
 
 
@@ -65,15 +64,20 @@ public class Player : MonoBehaviour
         {
             transform.position += playerSpeed * direction * Time.deltaTime;
             transform.rotation = Quaternion.LookRotation(Vector3.forward, direction);
+
+            Vector3 minDist = Vector3.right * 1000.0f;
             
             GameObject[] planets = GameObject.FindGameObjectsWithTag("planet");
             foreach (GameObject p in planets)
             {
                 Vector3 dist = p.transform.position - transform.position;
-                if (Vector3.Magnitude(dist) < attractionRange)
-                    direction = Vector3.Lerp(direction, dist, 0.001f);
-            }
+                if (Vector3.Magnitude(dist) < Vector3.Magnitude(minDist))
+                {
+                    minDist = dist;
+                }   
 
+            }
+            direction = Vector3.Lerp(direction, minDist, attraction/Mathf.Pow(Vector3.Magnitude(minDist),2f) * Time.deltaTime);
         }
         
         lr.positionCount++;
@@ -93,8 +97,4 @@ public class Player : MonoBehaviour
     [SerializeField]
     float attraction = 1.0f;
 
-    public void Attract(Vector3 dir)
-    {
-        direction = Vector3.RotateTowards(direction, dir, 0.01f, 0.01f);
-    }
 }

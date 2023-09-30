@@ -787,7 +787,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 763902965}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.36, y: -4.54, z: 0}
+  m_LocalPosition: {x: -2.85, y: -4.86, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -934,7 +934,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerSpeed: 10
   orbitSpeed: 5
-  attractionRange: 10
+  attractionRange: 3
   traslationSpeed: 0.1
   rotationSpeed: 0.08
   attraction: 1
