@@ -12,6 +12,7 @@ enum PlayerState
     None,
     Traveling,
     Orbiting,
+    Win,
     Dead
 }
 
@@ -52,6 +53,7 @@ public class Player : MonoBehaviour
                     currentState = PlayerState.Traveling;
                 break;
             case (PlayerState.Traveling):
+                if (!smokeTrail.isEmitting) smokeTrail.Play();
                 if (gravityCooldownCount > 0)
                 {
                     gravityCooldownCount -= Time.deltaTime;
@@ -63,10 +65,10 @@ public class Player : MonoBehaviour
                 ComputeAttractionDirection();
                 break;
             case (PlayerState.Orbiting):
+                if (smokeTrail.isEmitting) smokeTrail.Stop();
                 if (Input.GetKeyDown(KeyCode.Space)) 
                     currentState = PlayerState.Traveling;
-                    gravityScale = 0;
-                    gravityCooldownCount = gravityCooldown;
+                    TimedDisableGravity();
                 MoveInOrbit();
                 break;
             case (PlayerState.Dead):
@@ -87,13 +89,15 @@ public class Player : MonoBehaviour
     #region Movement
     void MoveForward()
     {
+        Vector3 velocity = Vector3.zero;
         // move along direction
         if (currentState == PlayerState.Traveling)
-            transform.position += direction.normalized * targetSpeed * Time.deltaTime;
+            velocity = direction.normalized * targetSpeed * Time.deltaTime;
         else if (currentState == PlayerState.Orbiting)
-            transform.position += direction.normalized * Time.deltaTime;
+            velocity = direction * Time.deltaTime;
         
-        Debug.Log(direction);
+
+        transform.position += velocity;
     }
 
     void ComputeAttractionDirection()
@@ -113,7 +117,13 @@ public class Player : MonoBehaviour
     void MoveInOrbit()
     {
         Vector3 target = Quaternion.Euler(new Vector3(0, 0, -90f)) * (transform.position - currentPlanet.position).normalized * orientation;
-        direction = target;
+        direction = target * targetSpeed + (currentPlanet.position - transform.position).normalized / targetSpeed;
+    }
+
+    public void TimedDisableGravity()
+    {   
+        gravityScale = 0;
+        gravityCooldownCount = gravityCooldown;
     }
 
     #endregion
@@ -138,7 +148,7 @@ public class Player : MonoBehaviour
     {
         if (target.tag == "planet") // colliding with a planet orbit
         {
-            Debug.Log("Hai preso un pianeta");
+            if (currentState == PlayerState.Orbiting) return;
             currentState = PlayerState.Orbiting;
             currentPlanet = target.GetComponent<Transform>();
 
@@ -160,6 +170,17 @@ public class Player : MonoBehaviour
             {
                 orientation = 1f;
             }
+
+            target.GetComponent<Planet>().Explored();
+
+            foreach (GameObject planet in planets)
+            {
+                if (!planet.GetComponent<Planet>().IsExplored)
+                return;
+            }
+
+            // if all planets are explored
+            Win();
         }
         else if (target.tag == "obstacle") // colliding with an obstacle
         {
@@ -170,7 +191,7 @@ public class Player : MonoBehaviour
 
     #region Events
     [SerializeField]
-    private UnityEvent OnDeath;
+    private UnityEvent OnDeath, OnWin;
     [SerializeField] private SpriteRenderer sprite;
     [SerializeField] private ParticleSystem smokeTrail, explosion;
     private void Die()
@@ -185,6 +206,14 @@ public class Player : MonoBehaviour
     {
         Scene current  = SceneManager.GetActiveScene();
         SceneManager.LoadScene(current.name);
+    }
+
+    public void Win()
+    {
+        Debug.Log("Hai vinto!");
+        currentState = PlayerState.Win;
+        smokeTrail.Stop();
+        OnWin.Invoke();
     }
     #endregion
 }
