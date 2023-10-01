@@ -616,6 +616,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1819654568, guid: 2271dee9dbe50e9498650ad91860e736, type: 3}
+      propertyPath: m_text
+      value: Connecting dots
+      objectReference: {fileID: 0}
     - target: {fileID: 737912967652028903, guid: 2271dee9dbe50e9498650ad91860e736, type: 3}
       propertyPath: m_IsActive
       value: 0
