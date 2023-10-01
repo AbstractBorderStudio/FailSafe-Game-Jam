@@ -1491,8 +1491,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f7a0a42e2549234d97fb44f3b3ed05e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnLeavePlanet:
+    m_PersistentCalls:
+      m_Calls: []
+  currentState: 0
   targetSpeed: 5
   gravityScaleMax: 0.08
+  direction: {x: 0, y: 1, z: 0}
   gravityCooldown: 0.25
   OnDeath:
     m_PersistentCalls:
@@ -1539,6 +1544,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76521923579997d4ba66e03307a4df58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onShoot:
+    m_PersistentCalls:
+      m_Calls: []
   playerBulletPrefab: {fileID: 2509519705530627360, guid: cf9b04362e7a9564196f88e807848958, type: 3}
   playerTransform: {fileID: 763902966}
   shootingPoint: {fileID: 1620466473}
