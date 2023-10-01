@@ -109,4 +109,9 @@ public class LevelSelector : MonoBehaviour
             prevLiv = Livelli[contatoreLiv - 1];
         }
     }
+
+    public int GetContatore()
+    {
+        return contatoreLiv;
+    }
 }
