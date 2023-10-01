@@ -57,12 +57,12 @@ public class LevelSelector : MonoBehaviour
             frecciaSX.interactable = false;
         }
 
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        if (frecciaDX.interactable && Input.GetKeyDown(KeyCode.RightArrow))
         {
             SetCliccatoSX();
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        if (frecciaSX.interactable && Input.GetKeyDown(KeyCode.LeftArrow))
         {
             SetCliccatoDX();
         }
