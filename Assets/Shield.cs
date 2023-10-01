@@ -27,7 +27,7 @@ public class Shield : MonoBehaviour
     {
         if (!isShieldActive && canUseShield)
         {
-            if (Input.GetKeyDown(KeyCode.D))
+            if (Input.GetKeyDown(KeyCode.DownArrow)|| Input.GetKeyDown(KeyCode.S))
             {
                 StartCoroutine(ActivateShield());
             }
