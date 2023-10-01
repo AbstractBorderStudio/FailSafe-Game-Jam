@@ -33,6 +33,7 @@ public class BreakableObject : MonoBehaviour,IEnemy
             StartCoroutine(DeactivateBullet(collision));
 
         }
+
     } 
     private IEnumerator DeactivateBullet(Collider2D collision)
     {

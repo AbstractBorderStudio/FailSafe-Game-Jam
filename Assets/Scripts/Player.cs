@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
+using UnityEditor.Experimental.GraphView;
 using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.Events;
@@ -20,12 +21,20 @@ enum PlayerState
 [RequireComponent(typeof(LineRenderer))]
 public class Player : MonoBehaviour
 {
+    [SerializeField]
+    private UnityEvent OnLeavePlanet;
+    [SerializeField]
     PlayerState currentState;
     [SerializeField]
     float targetSpeed = 1.0f,
         gravityScaleMax = 0.5f;
     float gravityScale;
-    Vector3 direction;
+    [SerializeField]
+    Vector3 direction = Vector3.up;
+    public Vector3 Direction {
+        get {return direction;} 
+        private set{}
+        }
     Transform currentPlanet; 
     float orientation = 1f;
     GameObject[] planets;
@@ -37,7 +46,6 @@ public class Player : MonoBehaviour
     void Start()
     {
         currentState = PlayerState.None;
-        direction = Vector3.up;
         planets = GameObject.FindGameObjectsWithTag("planet");
         gravityScale = gravityScaleMax;
     }
@@ -49,10 +57,16 @@ public class Player : MonoBehaviour
         switch (currentState)
         {
             case (PlayerState.None):
+                if (smokeTrail.isEmitting) smokeTrail.Stop();
                 if (Input.GetKeyDown(KeyCode.Space))
+                {
                     currentState = PlayerState.Traveling;
+                    OnLeavePlanet.Invoke();
+                }
+                    
                 break;
             case (PlayerState.Traveling):
+                if (!smokeTrail.isEmitting) smokeTrail.Play();
                 if (gravityCooldownCount > 0)
                 {
                     gravityCooldownCount -= Time.deltaTime;
@@ -64,16 +78,22 @@ public class Player : MonoBehaviour
                 ComputeAttractionDirection();
                 break;
             case (PlayerState.Orbiting):
+                if (smokeTrail.isEmitting) smokeTrail.Stop();
                 if (Input.GetKeyDown(KeyCode.Space)) 
                     currentState = PlayerState.Traveling;
-                    gravityScale = 0;
-                    gravityCooldownCount = gravityCooldown;
+                    TimedDisableGravity();
+                    OnLeavePlanet.Invoke();
                 MoveInOrbit();
                 break;
             case (PlayerState.Dead):
                 if (Input.GetKeyDown(KeyCode.Space))
                     RestartLevel();
                 return;
+            case (PlayerState.Win):
+                if (Input.GetKeyDown(KeyCode.Space))
+                    RestartLevel();
+                MoveInOrbit();
+                break;
             default:
                 break;
         }
@@ -92,8 +112,9 @@ public class Player : MonoBehaviour
         // move along direction
         if (currentState == PlayerState.Traveling)
             velocity = direction.normalized * targetSpeed * Time.deltaTime;
-        else if (currentState == PlayerState.Orbiting)
-            velocity = direction.normalized * Time.deltaTime;
+        else if (currentState == PlayerState.Orbiting || currentState == PlayerState.Win)
+            velocity = direction * Time.deltaTime;
+
         
 
         transform.position += velocity;
@@ -115,8 +136,18 @@ public class Player : MonoBehaviour
 
     void MoveInOrbit()
     {
-        Vector3 target = Quaternion.Euler(new Vector3(0, 0, -90f)) * (transform.position - currentPlanet.position).normalized * orientation;
-        direction = target;
+        Vector3 target;
+        target = Quaternion.Euler(new Vector3(0, 0, -90f)) * (transform.position - currentPlanet.position).normalized * orientation;
+        if (currentState == PlayerState.Orbiting)
+            direction = target * targetSpeed + (currentPlanet.position - transform.position).normalized / targetSpeed;
+        else if (currentState == PlayerState.Win)
+            direction = target;
+    }
+
+    public void TimedDisableGravity()
+    {   
+        gravityScale = 0;
+        gravityCooldownCount = gravityCooldown;
     }
 
     #endregion
@@ -139,9 +170,10 @@ public class Player : MonoBehaviour
     #region CollisionHandling
     void OnTriggerEnter2D(Collider2D target)
     {
-        if (target.tag == "planet") // colliding with a planet orbit
+        Planet current;
+        if (target.tag == "planet" && target.TryGetComponent<Planet>(out current)) // colliding with a planet orbit
         {
-            Debug.Log("Hai preso un pianeta");
+            if (currentState == PlayerState.Orbiting) return;
             currentState = PlayerState.Orbiting;
             currentPlanet = target.GetComponent<Transform>();
 
@@ -164,12 +196,17 @@ public class Player : MonoBehaviour
                 orientation = 1f;
             }
 
-            target.GetComponent<Planet>().Explored();
+            current.Explored();
 
             foreach (GameObject planet in planets)
             {
-                if (!planet.GetComponent<Planet>().IsExplored)
-                return;
+                Planet p;
+                if (planet.TryGetComponent<Planet>(out p))
+                {
+                    if (!p.IsExplored)
+                    return;
+                }
+                else continue;
             }
 
             // if all planets are explored
