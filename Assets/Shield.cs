@@ -1,9 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Shield : MonoBehaviour
 {
+    [SerializeField]
+    private UnityEvent onShieldActivate;
+    [SerializeField]
+    private UnityEvent onShieldDeactivate;
     private bool isShieldActive = false;
     private bool canUseShield = true;
     [SerializeField] float timeOutShield = 3f;
@@ -48,13 +53,15 @@ public class Shield : MonoBehaviour
     {
         //la devo chiamare quando scudo scade di durata
         isShieldActive = true;
+        onShieldActivate.Invoke();
         //attiva collider e output grafico
         shieldCollider.enabled = true;
         shieldRenderer.Play();
         Debug.Log("Attivo Scudo");
-        yield return new WaitForSeconds(timeProtectionShield);
-        shieldRenderer.Stop();
+        yield return new WaitForSeconds(timeProtectionShield);       
+        shieldRenderer.Stop();        
         shieldCollider.enabled = false;
+        onShieldDeactivate.Invoke();
         yield return new WaitForSeconds(1.35f);
         isShieldActive = false;
         Debug.Log("Disttivo Scudo");
