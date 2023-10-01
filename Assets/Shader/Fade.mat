@@ -37,18 +37,18 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _limit: 1.45
-    - _limit0: 0
-    - _limit1: 0
-    - _limit2: 0
-    - _limit3: 0
-    - _limit4: 0
-    - _limit5: 0
+    - _limit0: 2.49
+    - _limit1: 3.35
+    - _limit2: 1.71
+    - _limit3: 1.02
+    - _limit4: 1.23
+    - _limit5: 1.53
     - _pos1: 0
     m_Colors:
     - _col: {r: 0.54901963, g: 0.54901963, b: 0.54901963, a: 1}
     - _pos: {r: 0, g: 0, b: 0, a: 0}
-    - _pos0: {r: -3.47, g: -2.76, b: 0, a: 0}
-    - _pos1: {r: -2.73, g: 2.4, b: 0, a: 0}
+    - _pos0: {r: 0.13, g: -2.76, b: 0, a: 0}
+    - _pos1: {r: 0.7, g: 2.4, b: 0, a: 0}
     - _pos2: {r: -5.97, g: -0.07, b: 0, a: 0}
     - _pos3: {r: -0.15, g: 1.21, b: 0, a: 0}
     - _pos4: {r: 0, g: 0, b: 0, a: 0}
