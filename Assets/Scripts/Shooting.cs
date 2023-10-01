@@ -38,7 +38,7 @@ public class Shooting : MonoBehaviour
 				
 				StartCoroutine(WaitToShoot());
 			}
-			else */if (Input.GetKey(KeyCode.UpArrow))
+			else */if (Input.GetKey(KeyCode.UpArrow)|| Input.GetKey(KeyCode.W))
 			{
 				//Debug.Log("su");
 				onShoot.Invoke();
@@ -46,7 +46,7 @@ public class Shooting : MonoBehaviour
 				bullet.GetComponent<BulletMovement>().SetBulletMovement(playerTransform.up, shootPower);
 				StartCoroutine(WaitToShoot());
 			}
-			else if (Input.GetKey(KeyCode.LeftArrow))
+			else if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
 			{
 				//Debug.Log("sx");
 				onShoot.Invoke();
@@ -54,7 +54,7 @@ public class Shooting : MonoBehaviour
 				bullet.GetComponent<BulletMovement>().SetBulletMovement(-playerTransform.right+playerTransform.up, shootPower);
 				StartCoroutine(WaitToShoot());
 			}
-			else if (Input.GetKey(KeyCode.RightArrow))
+			else if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
 			{
 				//Debug.Log("dx");
 				onShoot.Invoke();
