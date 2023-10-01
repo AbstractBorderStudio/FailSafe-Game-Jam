@@ -546,6 +546,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2557444533430539909, guid: f6eb11ea97867854cab7d3d7eb4a0db8, type: 3}
+      propertyPath: gravityScaleMax
+      value: 0.13
+      objectReference: {fileID: 0}
+    - target: {fileID: 2557444533430539909, guid: f6eb11ea97867854cab7d3d7eb4a0db8, type: 3}
       propertyPath: OnWin.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 402343826}
@@ -689,8 +693,12 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1819654568, guid: 2271dee9dbe50e9498650ad91860e736, type: 3}
+      propertyPath: m_text
+      value: Perfection
+      objectReference: {fileID: 0}
+    - target: {fileID: 1819654568, guid: 2271dee9dbe50e9498650ad91860e736, type: 3}
       propertyPath: m_fontColor32.rgba
-      value: 16777215
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 737912968849844435, guid: 2271dee9dbe50e9498650ad91860e736, type: 3}
       propertyPath: m_Name
