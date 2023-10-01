@@ -22,7 +22,7 @@ enum PlayerState
 public class Player : MonoBehaviour
 {
     [SerializeField]
-    private UnityEvent OnLeavePlanet;
+    private UnityEvent OnLeavePlanet, OnExitWin, OnStart;
     [SerializeField]
     PlayerState currentState;
     [SerializeField]
@@ -60,6 +60,7 @@ public class Player : MonoBehaviour
                 if (smokeTrail.isEmitting) smokeTrail.Stop();
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
+                    OnStart.Invoke();
                     currentState = PlayerState.Traveling;
                     OnLeavePlanet.Invoke();
                 }
@@ -90,8 +91,8 @@ public class Player : MonoBehaviour
                     RestartLevel();*/
                 return;
             case (PlayerState.Win):
-                /*if (Input.GetKeyDown(KeyCode.Space))
-                    RestartLevel();*/
+                if (Input.GetKeyDown(KeyCode.Space))
+                    OnExitWin.Invoke();
                 MoveInOrbit();
                 break;
             default:

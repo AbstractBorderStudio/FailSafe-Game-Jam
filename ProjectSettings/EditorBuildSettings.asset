@@ -12,9 +12,6 @@ EditorBuildSettings:
     path: Assets/Scenes/LevelSelector.unity
     guid: 58ed41d7b260d144e99e03f4479ae12b
   - enabled: 1
-    path: Assets/Scenes/Gabri.unity
-    guid: 162094077250ad14f9be71831ee99f4a
-  - enabled: 1
     path: Assets/Scenes/LevelS/Level1.unity
     guid: 53acbf9264585b94e8f425ca3ac1fca5
   m_configObjects: {}
