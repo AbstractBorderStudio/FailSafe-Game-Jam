@@ -267,6 +267,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1431985048}
     m_Modifications:
+    - target: {fileID: 2557444533430539908, guid: f6eb11ea97867854cab7d3d7eb4a0db8, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2557444533430539909, guid: f6eb11ea97867854cab7d3d7eb4a0db8, type: 3}
       propertyPath: OnWin.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -354,6 +358,10 @@ PrefabInstance:
     - target: {fileID: 2557444533430539914, guid: f6eb11ea97867854cab7d3d7eb4a0db8, type: 3}
       propertyPath: m_Name
       value: Starship (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7099006679694805549, guid: f6eb11ea97867854cab7d3d7eb4a0db8, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f6eb11ea97867854cab7d3d7eb4a0db8, type: 3}
