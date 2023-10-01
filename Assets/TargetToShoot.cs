@@ -28,7 +28,7 @@ public class TargetToShoot : MonoBehaviour
             collision.GetComponent<BulletMovement>().stopMove();
             collision.GetComponent<ParticleSystem>().Play();
             collision.GetComponent<SpriteRenderer>().enabled = false;
-            collision.GetComponent<CircleCollider2D>().enabled = false;
+            collision.GetComponent<BoxCollider2D>().enabled = false;
 
             if (!isActive)
             {
@@ -36,7 +36,7 @@ public class TargetToShoot : MonoBehaviour
                 isActive = true;
                 GetComponentInChildren<ParticleSystem>().Play();
                 GetComponent<SpriteRenderer>().enabled = false;
-                GetComponent<CircleCollider2D>().enabled = false;
+                GetComponent<BoxCollider2D>().enabled = false;
             }
             StartCoroutine(DeactivateBullet(collision));
 
