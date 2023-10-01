@@ -235,7 +235,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  exploredColor: {r: 0.8207547, g: 0.69729024, b: 0, a: 1}
+  exploredColor: {r: 1, g: 0.88315547, b: 0, a: 1}
   exploredParticle: {fileID: 639765293082980540}
   sprite: {fileID: 7151596574422652754}
 --- !u!50 &7151596575776552832

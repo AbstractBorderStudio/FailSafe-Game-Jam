@@ -17,11 +17,15 @@ public class Planet : MonoBehaviour
     public SpriteRenderer sprite;
     private Player p;
     private Transform t;
+    private Fade fade;
+    //[SerializeField]
+    //int index;
     
     void Start()
     {
         t = GetComponent<Transform>();
         p = GameObject.FindAnyObjectByType<Player>();
+        //fade = FindObjectOfType<Fade>();
     }
 
     public void Explored()
@@ -29,6 +33,7 @@ public class Planet : MonoBehaviour
         if (!IsExplored) exploredParticle.Play();
         sprite.color = exploredColor;
         IsExplored = true;
+        //fade.SetSpot(index, transform.position);
         OnExplore.Invoke();
     }
 }

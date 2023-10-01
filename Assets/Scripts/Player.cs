@@ -27,7 +27,8 @@ public class Player : MonoBehaviour
     float targetSpeed = 1.0f,
         gravityScaleMax = 0.5f;
     float gravityScale;
-    Vector3 direction;
+    [SerializeField]
+    Vector3 direction = Vector3.up;
     public Vector3 Direction {
         get {return direction;} 
         private set{}
@@ -43,7 +44,6 @@ public class Player : MonoBehaviour
     void Start()
     {
         currentState = PlayerState.None;
-        direction = Vector3.up;
         planets = GameObject.FindGameObjectsWithTag("planet");
         gravityScale = gravityScaleMax;
     }
@@ -55,6 +55,7 @@ public class Player : MonoBehaviour
         switch (currentState)
         {
             case (PlayerState.None):
+                if (smokeTrail.isEmitting) smokeTrail.Stop();
                 if (Input.GetKeyDown(KeyCode.Space))
                     currentState = PlayerState.Traveling;
                 break;
@@ -84,7 +85,8 @@ public class Player : MonoBehaviour
             case (PlayerState.Win):
                 if (Input.GetKeyDown(KeyCode.Space))
                     RestartLevel();
-                return;
+                MoveInOrbit();
+                break;
             default:
                 break;
         }
@@ -103,8 +105,9 @@ public class Player : MonoBehaviour
         // move along direction
         if (currentState == PlayerState.Traveling)
             velocity = direction.normalized * targetSpeed * Time.deltaTime;
-        else if (currentState == PlayerState.Orbiting)
+        else if (currentState == PlayerState.Orbiting || currentState == PlayerState.Win)
             velocity = direction * Time.deltaTime;
+
         
 
         transform.position += velocity;
@@ -126,8 +129,12 @@ public class Player : MonoBehaviour
 
     void MoveInOrbit()
     {
-        Vector3 target = Quaternion.Euler(new Vector3(0, 0, -90f)) * (transform.position - currentPlanet.position).normalized * orientation;
-        direction = target * targetSpeed + (currentPlanet.position - transform.position).normalized / targetSpeed;
+        Vector3 target;
+        target = Quaternion.Euler(new Vector3(0, 0, -90f)) * (transform.position - currentPlanet.position).normalized * orientation;
+        if (currentState == PlayerState.Orbiting)
+            direction = target * targetSpeed + (currentPlanet.position - transform.position).normalized / targetSpeed;
+        else if (currentState == PlayerState.Win)
+            direction = target;
     }
 
     public void TimedDisableGravity()
