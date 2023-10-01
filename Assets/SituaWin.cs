@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SituaWin : MonoBehaviour
 {
@@ -13,5 +14,10 @@ public class SituaWin : MonoBehaviour
         canvasSettings.SetActive(false);
         canvasWin.SetActive(true);
         animator.SetTrigger("Win");
+    }
+
+    public void NextLiv()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }
