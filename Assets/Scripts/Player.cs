@@ -86,12 +86,12 @@ public class Player : MonoBehaviour
                 MoveInOrbit();
                 break;
             case (PlayerState.Dead):
-                if (Input.GetKeyDown(KeyCode.Space))
-                    RestartLevel();
+                /*if (Input.GetKeyDown(KeyCode.Space))
+                    RestartLevel();*/
                 return;
             case (PlayerState.Win):
-                if (Input.GetKeyDown(KeyCode.Space))
-                    RestartLevel();
+                /*if (Input.GetKeyDown(KeyCode.Space))
+                    RestartLevel();*/
                 MoveInOrbit();
                 break;
             default:

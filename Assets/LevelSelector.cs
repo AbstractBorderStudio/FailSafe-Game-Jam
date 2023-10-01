@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +15,8 @@ public class LevelSelector : MonoBehaviour
 
     [SerializeField] private Button frecciaDX;
     [SerializeField] private Button frecciaSX;
+
+    [SerializeField] private AudioSource audio;
     void Start()
     {
         
@@ -60,11 +63,13 @@ public class LevelSelector : MonoBehaviour
         if (frecciaDX.interactable && Input.GetKeyDown(KeyCode.RightArrow))
         {
             SetCliccatoSX();
+            audio.Play();
         }
 
         if (frecciaSX.interactable && Input.GetKeyDown(KeyCode.LeftArrow))
         {
             SetCliccatoDX();
+            audio.Play();
         }
     }
     
