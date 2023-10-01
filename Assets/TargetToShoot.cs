@@ -32,7 +32,11 @@ public class TargetToShoot : MonoBehaviour
 
             if (!isActive)
             {
-                StartCoroutine(ActivateTarget());
+                //StartCoroutine(ActivateTarget());
+                isActive = true;
+                GetComponentInChildren<ParticleSystem>().Play();
+                GetComponent<SpriteRenderer>().enabled = false;
+                GetComponent<CircleCollider2D>().enabled = false;
             }
             StartCoroutine(DeactivateBullet(collision));
 
@@ -44,12 +48,5 @@ public class TargetToShoot : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
         GameObject.Destroy(collision.gameObject);
     }
-    private IEnumerator ActivateTarget()
-    {
-        Debug.Log("attivato");
-        isActive = true;
-        GetComponentInChildren<ParticleSystem>().Play();
-        //cambiamo colore del target
-        yield return null;
-    }
+   
 }

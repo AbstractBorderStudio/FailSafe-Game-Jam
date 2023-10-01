@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Shooting : MonoBehaviour
 	{
-		public GameObject playerBulletPrefab;
+		[SerializeField]
+		private UnityEvent onShoot;
+	public GameObject playerBulletPrefab;
 		public Transform playerTransform;
 		public Transform shootingPoint;
 		private GameObject bullet;
@@ -38,6 +41,7 @@ public class Shooting : MonoBehaviour
 			else */if (Input.GetKey(KeyCode.UpArrow))
 			{
 				//Debug.Log("su");
+				onShoot.Invoke();
 				bullet = CreatePlayerBullet();
 				bullet.GetComponent<BulletMovement>().SetBulletMovement(playerTransform.up, shootPower);
 				StartCoroutine(WaitToShoot());
@@ -45,6 +49,7 @@ public class Shooting : MonoBehaviour
 			else if (Input.GetKey(KeyCode.LeftArrow))
 			{
 				//Debug.Log("sx");
+				onShoot.Invoke();
 				bullet = CreatePlayerBullet();
 				bullet.GetComponent<BulletMovement>().SetBulletMovement(-playerTransform.right+playerTransform.up, shootPower);
 				StartCoroutine(WaitToShoot());
@@ -52,6 +57,7 @@ public class Shooting : MonoBehaviour
 			else if (Input.GetKey(KeyCode.RightArrow))
 			{
 				//Debug.Log("dx");
+				onShoot.Invoke();
 				bullet = CreatePlayerBullet();
 				bullet.GetComponent<BulletMovement>().SetBulletMovement(playerTransform.right + playerTransform.up, shootPower);
 				StartCoroutine(WaitToShoot());
