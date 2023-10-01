@@ -7,6 +7,6 @@ public class ReturnToMainMenu : MonoBehaviour
 {
     public void Quit()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        SceneManager.LoadScene(0);
     }
 }
