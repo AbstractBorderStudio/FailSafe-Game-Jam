@@ -22,6 +22,8 @@ enum PlayerState
 public class Player : MonoBehaviour
 {
     [SerializeField]
+    private UnityEvent OnLeavePlanet;
+    [SerializeField]
     PlayerState currentState;
     [SerializeField]
     float targetSpeed = 1.0f,
@@ -56,7 +58,11 @@ public class Player : MonoBehaviour
         {
             case (PlayerState.None):
                 if (Input.GetKeyDown(KeyCode.Space))
+                {
                     currentState = PlayerState.Traveling;
+                    OnLeavePlanet.Invoke();
+                }
+                    
                 break;
             case (PlayerState.Traveling):
                 if (!smokeTrail.isEmitting) smokeTrail.Play();
@@ -75,6 +81,7 @@ public class Player : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.Space)) 
                     currentState = PlayerState.Traveling;
                     TimedDisableGravity();
+                    OnLeavePlanet.Invoke();
                 MoveInOrbit();
                 break;
             case (PlayerState.Dead):

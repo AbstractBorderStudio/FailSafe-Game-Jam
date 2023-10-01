@@ -168,7 +168,7 @@ GameObject:
   - component: {fileID: 7151596575776552832}
   - component: {fileID: 7519390207967460916}
   m_Layer: 0
-  m_Name: 'Planet '
+  m_Name: Planet
   m_TagString: planet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -271,7 +271,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: b3b475061643d6146823adb5ecd0b63e, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.11
+  m_Volume: 0.05
   m_Pitch: 1
   Loop: 0
   Mute: 0
