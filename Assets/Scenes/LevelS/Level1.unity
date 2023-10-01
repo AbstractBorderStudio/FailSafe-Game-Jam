@@ -1643,18 +1643,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1431985048}
     m_Modifications:
-    - target: {fileID: 892326029, guid: 2271dee9dbe50e9498650ad91860e736, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1819654566, guid: 2271dee9dbe50e9498650ad91860e736, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1819654568, guid: 2271dee9dbe50e9498650ad91860e736, type: 3}
-      propertyPath: m_fontColor32.rgba
-      value: 16777215
-      objectReference: {fileID: 0}
     - target: {fileID: 737912968849844435, guid: 2271dee9dbe50e9498650ad91860e736, type: 3}
       propertyPath: m_Name
       value: GameUICanvas (1)
