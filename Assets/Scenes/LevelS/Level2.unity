@@ -247,7 +247,7 @@ Transform:
   m_GameObject: {fileID: 402343826}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5.2577, y: 0.5422, z: 1}
+  m_LocalScale: {x: 5.2577, y: 0.2710458, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -616,9 +616,33 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1819654567, guid: 2271dee9dbe50e9498650ad91860e736, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 849.7056
+      objectReference: {fileID: 0}
+    - target: {fileID: 1819654567, guid: 2271dee9dbe50e9498650ad91860e736, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 45.548
+      objectReference: {fileID: 0}
+    - target: {fileID: 1819654567, guid: 2271dee9dbe50e9498650ad91860e736, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1819654567, guid: 2271dee9dbe50e9498650ad91860e736, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1819654568, guid: 2271dee9dbe50e9498650ad91860e736, type: 3}
       propertyPath: m_text
       value: Connecting dots
+      objectReference: {fileID: 0}
+    - target: {fileID: 1819654568, guid: 2271dee9dbe50e9498650ad91860e736, type: 3}
+      propertyPath: m_margin.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1819654568, guid: 2271dee9dbe50e9498650ad91860e736, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 737912967652028903, guid: 2271dee9dbe50e9498650ad91860e736, type: 3}
       propertyPath: m_IsActive
@@ -711,6 +735,14 @@ PrefabInstance:
     - target: {fileID: 737912968849844439, guid: 2271dee9dbe50e9498650ad91860e736, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3899627582783985358, guid: 2271dee9dbe50e9498650ad91860e736, type: 3}
+      propertyPath: m_text
+      value: Trace the first line
+      objectReference: {fileID: 0}
+    - target: {fileID: 3899627582783985358, guid: 2271dee9dbe50e9498650ad91860e736, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2271dee9dbe50e9498650ad91860e736, type: 3}

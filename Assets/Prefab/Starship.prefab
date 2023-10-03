@@ -265,8 +265,8 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   currentState: 0
-  targetSpeed: 5
-  gravityScaleMax: 0.12
+  targetSpeed: 6
+  gravityScaleMax: 0.15
   direction: {x: 1, y: 0, z: 0}
   gravityCooldown: 0.15
   OnDeath:
