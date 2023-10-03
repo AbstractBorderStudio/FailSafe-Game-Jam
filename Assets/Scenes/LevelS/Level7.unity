@@ -761,7 +761,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1819654568, guid: 2271dee9dbe50e9498650ad91860e736, type: 3}
       propertyPath: m_text
-      value: Energia travolgente
+      value: Strong energy
       objectReference: {fileID: 0}
     - target: {fileID: 1819654568, guid: 2271dee9dbe50e9498650ad91860e736, type: 3}
       propertyPath: m_fontColor32.rgba
@@ -941,7 +941,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3082694345980884465, guid: 3af938c8118feb6489f040aa9367ed6e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.38
+      value: -2.64
       objectReference: {fileID: 0}
     - target: {fileID: 3082694345980884465, guid: 3af938c8118feb6489f040aa9367ed6e, type: 3}
       propertyPath: m_LocalPosition.z
