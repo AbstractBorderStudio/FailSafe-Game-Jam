@@ -227,7 +227,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 5dbff54778872f449b4b0d80758d5ae9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 571652b21dfd0414f93b1eee1092dc5b, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 0.50980395}
   m_FlipX: 0
   m_FlipY: 0
@@ -246,8 +246,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 402343826}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.1171, z: 0}
-  m_LocalScale: {x: 3.7723997, y: 3.0432863, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2.0812328, y: 2.2152083, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -806,6 +806,14 @@ PrefabInstance:
     - target: {fileID: 737912968849844439, guid: 2271dee9dbe50e9498650ad91860e736, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3899627582783985358, guid: 2271dee9dbe50e9498650ad91860e736, type: 3}
+      propertyPath: m_text
+      value: Careful of black holes
+      objectReference: {fileID: 0}
+    - target: {fileID: 3899627582783985358, guid: 2271dee9dbe50e9498650ad91860e736, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2271dee9dbe50e9498650ad91860e736, type: 3}
