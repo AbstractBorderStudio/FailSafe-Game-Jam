@@ -6,8 +6,5 @@
 - Massimiani Gabriele
 - Uras Pietro
 
-## Theme
-
-## Idea
-
-## Concept
+## Try the game
+[LineSpacing](https://abstractborderstudio.itch.io/linespacing)
